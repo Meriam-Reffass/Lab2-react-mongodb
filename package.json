@@ -1,0 +1,24 @@
+{
+  "name": "mernapp",
+  "version": "1.0.0",
+  "description": "A shopping list built with the mern stack",
+  "main": "index.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
+"server": "nodemon server.js",
+"client": "npm start --prefix client",
+"dev": "concurrently \"npm run server\" \"npm run client\""},
+   
+  "author": "Meriam Reffass",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "concurrently": "^7.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
