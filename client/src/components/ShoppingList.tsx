@@ -1,29 +1,42 @@
-import React, {Component, useState} from 'react' ;
+import React, {Component, useState, useEffect} from 'react' ;
 import { Container, ListGroup, ListGroupItem, Button} from 'reactstrap' ;
 import { CSSTransition,TransitionGroup} from 'react-transition-group';
 import {v1 as uuid} from 'uuid';
+import axios from 'axios';
 
 function ShoppingList() {
 
     const [items, setItems]=useState<Array<{id:string,name:string}>>(
-        [
-            {id: uuid(), name : 'Eggs'},
-            {id: uuid(), name : 'Milk'},
-            {id: uuid(), name : 'Steak'},
-            {id: uuid(), name : 'Water'}
-            ]
+        
     )
+    axios.get('/api/items')
+    .then(response => {
+        
+        setItems(response.data);
+    });
+
+function deleteItem(id: any){
+axios.delete(`/api/items/${id}`).then(res=>{
+console.log("succes")
+})
+}
+function addItem(item: any){
+axios.post('/api/items',item).then(res=>{
+console.log("succes")
+})
+}
+
             return(
             <Container>
-                <Button color="dark" style={{marginBottom:'2rm'}}
+                <Button color="dark" style={{marginBottom:'10px'}}
                         onClick={() => {
                             const name = prompt('Enter Item');
+                            const newItem ={
+                                name:name
+                            }
                             if(name){
-                                // this.setState(state => ({
-                                //     items : [...state.items, { id : uuid() , name}]
-
-                                // }));
-                            setItems([...items, { id : uuid() , name}])
+                                addItem(newItem)
+                                
                             }
                         }}>
                     Add item
@@ -35,13 +48,8 @@ function ShoppingList() {
                             <CSSTransition key={id} timeout={500} classNames="fade">
                                 <ListGroupItem> 
                                     <Button className='remove-btn' color="danger"
-                                    onClick={()=>{
-                                    //     this.setState(state => ({
-                                    //     items : this.state.items.filter(item => item.id != id)
-                                    // }));
-                                    setItems(items.filter(item => item.id != id))
-                                
-                                    }}>
+                                     onClick={()=>{deleteItem(id)}}
+                                     >
                                         &times;
                                     </Button>
                                     {name}

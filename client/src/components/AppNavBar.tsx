@@ -13,12 +13,7 @@ import {
 function AppNavBAr() {
        
     const [isOpen, setIsOpen] = useState<boolean>(false);
-
     const toggle =() => {
-        // this.setState({
-        //     isOpen : !this.state.isOpen
-        // });
-
         setIsOpen(!isOpen)
     }
 
@@ -38,8 +33,7 @@ function AppNavBAr() {
                     </Container>
                 </Navbar>
             </div>
-        )
-    
+        )   
 }
 
 export default AppNavBAr;
